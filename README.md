@@ -1,6 +1,6 @@
 python3.10 [install](https://www.python.org/downloads/)
 
-It implements the three ways to data sending.
+## It implements the three ways for IPC.
 1. socket
 2. pipe
 3. shared memory
@@ -11,5 +11,5 @@ python3 main.py
 ```
 
 
-Refers:
+## Refers:
 [Introduce the different between connection](https://hackmd.io/@iST40ExoQtubds5LhuuaAw/HkCSnQUfQ)
