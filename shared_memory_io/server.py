@@ -40,7 +40,7 @@ def start():
     s.serve_forever()
 
 
-def put_data(data=1):
+def put_data(data: int):
     """
     Create the connect to put the data in the memory
     """

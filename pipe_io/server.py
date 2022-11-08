@@ -1,35 +1,32 @@
 from multiprocessing import Process, Pipe
-import statistics
-import utils
 
-def reader(p_client):
-    p_client.send('Client2 is ready')
-    while True:
-        msg = p_client.recv()    # Read from the output pipe
-        if msg.lower() == 'exit':
-            break
+
+class Pipe_Server():
+    def __init__(self):
+        pass
+
+    def reader(self, p_client):
+        p_client.send('Client2 is ready')
+        while True:
+            msg = p_client.recv()    # Read from the output pipe
+            if msg.lower() == 'exit':
+                break
+            print(msg)
+        p_client.close()
+
+    def start(self):
+        self.p_server, p_client = Pipe()
+        self.reader_p = Process(target=self.reader, args=(p_client,))
+        self.reader_p.daemon = True
+        self.reader_p.start()    # Launch the reader process
+
+        self.p_server.send(f'waiting connection...')
+        msg = self.p_server.recv()
         print(msg)
-    p_client.close()
-
-
-def start():
-    p_server, p_client = Pipe()
-    reader_p = Process(target=reader, args=(p_client,))
-    reader_p.daemon = True
-    reader_p.start()    # Launch the reader process
-
-    p_server.send(f'wait connect...')
-    msg = p_server.recv()
-    print(msg)
-
-    data = input('Server is ready. You can type intergers and then click [ENTER].  Clients will show the mean, median, and mode of the input values:')
-    data = utils.to_nums(data)
-
-    p_server.send(f'Median is {statistics.median(data)}')
-    # A switch
-    p_server.send('exit')
-    p_server.close()
-    reader_p.join()
-
-if __name__ == '__main__':
-    pass
+    
+    def send_msg(self, value):
+        self.p_server.send(f'Median is {value}')
+        # A switch
+        self.p_server.send('exit')
+        self.p_server.close()
+        self.reader_p.join()
