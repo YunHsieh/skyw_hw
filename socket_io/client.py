@@ -5,4 +5,4 @@ def start():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((contants.HOST, contants.PORT))
         s.send(b'Client1 is ready')
-        print(f'Mean is {s.recv(1024).decode()}')
+        print(s.recv(1024).decode())

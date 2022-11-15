@@ -14,7 +14,7 @@ def start():
     while True:
         data = m.get_queue("mode").get()
         if data:
-            print(f'Mode is {statistics.mode([1,2,3])}')
+            print(data)
             m.stop()
             break
         time.sleep(0.1)

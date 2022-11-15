@@ -25,7 +25,7 @@ class Pipe_Server():
         print(msg)
     
     def send_msg(self, value):
-        self.p_server.send(f'Median is {value}')
+        self.p_server.send(value)
         # A switch
         self.p_server.send('exit')
         self.p_server.close()
